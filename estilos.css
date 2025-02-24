@@ -1,0 +1,322 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  /* .mobile-container {
+    max-width: 480px;
+    margin: auto;
+    background-color: #555;
+    height: 500px;
+    color: white;
+    border-radius: 10px;
+  }
+   */
+   
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+    position: relative;
+  }
+  
+  .topnav #myLinks {
+    display: none;
+  }
+  
+  .topnav a {
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+  }
+  
+  .topnav a.icon {
+    background: black;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .active {
+    background-color: #000000;
+    color: white;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.topnav .active {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffcc00; /* Destaque na cor */
+    text-transform: uppercase;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+
+
+ /* Estilos para a seção de bebidas */
+  /* Estilos para a seção de bebidas */
+  main {
+    text-align: center;
+    padding: 40px 20px;
+    background: #f8f8f8; /* Fundo suave */
+}
+
+main h1 {
+    font-size: 28px;
+    color: #080808;
+    margin-bottom: 10px;
+}
+
+main p {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.bebida-destaque {
+    width: 100%;
+    max-width: 600px; /* Evita que fique muito grande */
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+/* Estilização do container de bebidas */
+.bebidas-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Cartão individual de cada bebida */
+.bebida {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+    transition: 0.3s;
+}
+
+.bebida:hover {
+    transform: translateY(-5px); /* Efeito de destaque ao passar o mouse */
+}
+
+.bebida img {
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.bebida h3 {
+    font-size: 20px;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+.bebida p {
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.bebida button {
+    background: #000000;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.bebida button:hover {
+    background: #000000;
+    transform: scale(1.05);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .bebidas-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bebida {
+        width: 90%;
+    }
+}
+
+.opcoes {
+  text-align: center;
+  padding: 20px;
+}
+
+.filter-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px; /* Maior espaçamento entre os ícones */
+  margin-top: 10px;
+}
+
+.filter-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border: 2px solid #b22222;
+  padding: 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 120px;
+  text-align: center;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn:hover {
+  background: #b22222;
+  color: white;
+  transform: scale(1.1); /* Efeito ao passar o mouse */
+}
+
+.filter-btn img {
+  width:100px;  /* Aumentei o tamanho da imagem */
+  height: 70px;
+  margin-bottom: 8px;
+}
+
+.filter-btn span {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.product {
+  width: 180px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+
+/* Responsivo para celulares */
+@media (max-width: 768px) {
+  .filter-section {
+      gap: 10px;
+  }
+
+  .filter-btn {
+      width: 100px;  /* Ajustei para caber melhor em telas pequenas */
+      padding: 10px;
+  }
+
+  .filter-btn img {
+      width: 60px;  /* Tamanho reduzido para mobile */
+      height: 60px;
+  }
+
+  .filter-btn span {
+      font-size: 14px;
+  }
+
+  .product {
+      width: 150px;
+  }
+}
+
+footer {
+  background: #000000;
+  color: white;
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 16px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-bottom: 15px;
+}
+
+.footer-info,
+.footer-social {
+  max-width: 300px;
+}
+
+.footer-info h3,
+.footer-social h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.footer-social .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.footer-social .social-icons a img {
+  width: 30px;
+  height: 30px;
+  transition: 0.3s;
+}
+
+.footer-social .social-icons a:hover img {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+.footer-creditos {
+  margin-top: 15px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* Responsivo para smartphones */
+@media (max-width: 768px) {
+  .footer-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+  }
+
+  .footer-info,
+  .footer-social {
+      width: 100%;
+  }
+
+  .footer-social .social-icons {
+      gap: 10px;
+  }
+}
