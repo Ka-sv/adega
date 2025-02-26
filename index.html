@@ -10,33 +10,36 @@
 </head>
 <body>
     <header>
-       <!-- Simulate a smartphone / tablet -->
-<div class="mobile-container">
-
-    <!-- Top Navigation Menu -->
-    <div class="topnav">
-      <a href="#home" class="active">MixBar</a>
-      <div id="myLinks">
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
-      </div>
-      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
-      </a>
-    </div>
-
-    <div class="search-container">
-        <input type="text" placeholder="Buscar bebidas..." id="search-input">
-        <button id="search-btn"><i class="fa fa-search"></i></button>
-     </div>
-
-    <div class="icons-container">
-        <a href="#" class="cart-icon" id="cart-btn">
-            <img src="img/compras-online.png" alt="Carrinho">
-        </a>
-         
+        <div class="menu-container">
+            <!-- Logo -->
+            <a href="#home" class="active">MixBar</a>
+    
+            <!-- Barra de pesquisa -->
+            <div class="pesquisa-container">
+                <input type="text" placeholder="Buscar bebidas..." id="pesquisa-input">
+                <button id="pesquisa-btn"><i class="fa fa-search"></i></button>
+            </div>
+    
+            <!-- Ícones do menu e carrinho -->
+            <div class="icons-container">
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <a href="#" class="cart-icon" id="cart-btn">
+                    <img src="img/carrinho.png" alt="Carrinho">
+                </a>
+            </div>
+    
+            <!-- Links ocultos do menu hamburguer -->
+            <div id="myLinks">
+                <a href="#news">News</a>
+                <a href="#contact">Contact</a>
+                <a href="#about">About</a>
+            </div>
+        </div>
     </header>
+    
+    
 
     <main>
         <h1>Bem-vindo à Adega de Bebidas!</h1>
@@ -94,6 +97,17 @@
             <div class="product" data-category="ofertas">Combo de Cervejas</div>
         </div>
     </section>
+
+            <!-- Ícone do Carrinho de Compras -->
+        <a href="#" id="cart-btn-fixed">
+            <img src="img/carrinho.png" alt="Carrinho de Compras">
+        </a>
+
+        <!-- Ícone do WhatsApp -->
+        <a href="https://wa.me/5591999999999" target="_blank" id="whatsapp-btn-fixed">
+            <img src="img/whatsapp.png" alt="WhatsApp">
+        </a>
+
     
 
 
