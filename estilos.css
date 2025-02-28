@@ -3,14 +3,14 @@ body {
   }
     
 
-   .topnav {
+   /* .topnav {
     overflow: hidden;
     background-color: #333;
     position: relative;
-  }
+  } */
   
 
-  .topnav #myLinks {
+  /* .topnav #myLinks {
     display: none;
     flex-direction: column; 
     position: absolute;
@@ -20,35 +20,37 @@ body {
     background: #333; 
     padding: 10px 0;
     text-align: center; 
-}
+} */
 
 
-.topnav a {
+/* .topnav a {
   color: white;
   padding: 12px;
   text-decoration: none; 
   font-size: 17px;
   display: block;
   transition: 0.3s;
-}
+} */
 
-.topnav #myLinks a:hover {
+/* .topnav #myLinks a:hover {
   background-color: #04AA6D;
   color: white;
-}
+} */
+
+
   
-.topnav a.icon {
+/* .topnav a.icon {
   background: black;
   display: block;
   position: absolute;
   right: 0;
   top: 0;
 }
-  
-.topnav a:hover {
+   */
+/* .topnav a:hover {
   background-color: #ddd;
   color: black;
-}
+} */
   
   .active {
     background-color: #000000;
@@ -74,7 +76,33 @@ body {
   justify-content: space-between;
   padding: 10px;
   background-color: #333;
+  gap: 30px;
 }
+
+#myLinks {
+  text-align: center; /* Alinha os links ao centro */
+  margin: 20px 0; /* Adiciona um espaço acima e abaixo */
+}
+
+#myLinks a {
+  font-size: 16px; /* Tamanho de fonte */
+  color: #333; /* Cor do link */
+  text-decoration: none; /* Remove o sublinhado padrão */
+  padding: 10px 20px; /* Adiciona padding para aumentar a área clicável */
+  margin: 0 10px; /* Espaçamento entre os links */
+  border-radius: 5px; /* Borda arredondada */
+  transition: background-color 0.3s ease; /* Efeito suave ao passar o mouse */
+}
+
+#myLinks a:hover {
+  background-color: #4CAF50; /* Cor de fundo ao passar o mouse */
+  color: white; /* Cor do texto ao passar o mouse */
+}
+
+#myLinks a:active {
+  transform: scale(0.98); /* Efeito de clique (encolhe o link) */
+}
+
 
 
 
@@ -111,10 +139,8 @@ body {
 .cart-icon img {
   width: 30px; 
   height: 30px;
+  gap: 200px;
 }
-
-
-
 
   main {
     text-align: center;
