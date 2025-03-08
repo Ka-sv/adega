@@ -338,6 +338,7 @@ main p {
 
 /* Responsivo para celulares */
 @media (max-width: 414px) {
+  
   #limpar-pesquisa {
     display: none;
 }
@@ -345,6 +346,33 @@ main p {
 .icons-container {
     margin-top: 10px;
 } 
+#myLinks {
+  display: none; /* Continua escondendo até ser ativado */
+  flex-direction: column;
+  align-items: center; /* Centraliza os links */
+  width: 100%;
+  background: #222;
+  position: absolute;
+  top: 60px; /* Posiciona abaixo do header */
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 15px 0; /* Adiciona um espaço interno */
+}
+
+#myLinks a {
+  display: block;
+  width: 90%; /* Define uma largura para melhor organização */
+  padding: 15px;
+  font-size: 18px;
+  text-align: center; /* Garante que o texto fique centralizado */
+  color: white;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.1); /* Adiciona um fundo sutil */
+  border-radius: 5px; /* Bordas arredondadas */
+  margin: 5px 0; /* Espaçamento entre os links */
+  transition: background 0.3s ease-in-out;
+}
   @keyframes pulsar {
     0% {
         transform: scale(1);
