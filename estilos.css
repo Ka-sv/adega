@@ -337,7 +337,14 @@ main p {
 
 
 /* Responsivo para celulares */
-@media (max-width: 768px) {
+@media (max-width: 414px) {
+  #limpar-pesquisa {
+    display: none;
+}
+
+.icons-container {
+    margin-top: 10px;
+} 
   @keyframes pulsar {
     0% {
         transform: scale(1);
