@@ -11,15 +11,16 @@
 <body>
     <header>
         <div class="menu-container">
+            
             <!-- Logo -->
-        
-
-            <a href="#home" class="active">MixBar</a>
+            <a href="#home" class="logo">MixBar</a>
     
             <!-- Barra de pesquisa -->
             <div class="pesquisa-container">
-                <input type="text" placeholder="Buscar bebidas..." id="pesquisa-input">
+                <input type="text" placeholder="digite aqui o produto que deseja buscar" id="pesquisa-input">
                 <button id="pesquisa-btn"><i class="fa fa-search"></i></button>
+                <button id="limpar-pesquisa">Limpar</button>
+
             </div>
     
             <!-- Ícones do menu e carrinho -->
@@ -37,23 +38,26 @@
     
             <!-- Links ocultos do menu hamburguer -->
             <div id="myLinks">
-                <a href="#news">News</a>
-                <a href="#contact">Contact</a>
-                <a href="#about">About</a>
+                <a href="#news">Visite o nosso Instagram</a>
+                <a href="#contact">Contato</a>
+                <a href="#about">Produtos</a>
             </div>
         </div>
 
     </header>
     
-    
-
     <main>
-        <h1>Bem-vindo à Adega de Bebidas!</h1>
+        <h1>Seja Bem-vindo à Adega Mix!</h1>
         <p>Explore nossas melhores seleções de bebidas.</p>
         <img src="img/chop-heineken.jpg" alt="Bebida destaque" class="bebida-destaque">
 
+    </main>
+
         <section class="bebidas-container">
-            <div class="bebida">
+
+          <h1 class="produtos">Confira as nossas ofertas</h1>    
+        
+            <!-- <div class="bebida">
                 <img src="img/lata-puromalte_350ml.png" alt="Vinho">
                 <h3>Lata Skol puro malte</h3>
                 <p>R$ 4.50</p>
@@ -101,38 +105,27 @@
                 <h3>Whisky Jack Maçã</h3>
                 <p>R$ 199,90</p>
                 <button>Adicionar ao Carrinho</button>
-            </div>
+            </div> -->
         </section>
-    </main>
+    
     <section class="opcoes">
         <h2>Opções</h2>
         <div class="filter-section">
-            <button class="filter-btn" data-category="vinho">
-                <img src="img/carvão.png" alt="Vinhos">
-                <span>Carvão </span>
-            </button>
             <button class="filter-btn" data-category="cerveja">
-                <img src="img/cerveja.jpg" alt="Cervejas">
+                <img src="img/heineken-original-longneck.png" alt="Cervejas">
                 <span>Cervejas</span>
             </button>
             <button class="filter-btn" data-category="destilado">
-                <img src="img/destilados.webp" alt="Destilados">
+                <img src="img/destilados.png" alt="Destilados">
                 <span>Destilados</span>
             </button>
             <button class="filter-btn" data-category="ofertas">
                 <img src="img/desconto.png" alt="Ofertas">
                 <span>Ofertas</span>
             </button>
+           
         </div>
     
-        <!-- <div class="products">
-            <div class="product" data-category="vinho">Vinho Tinto</div>
-            <div class="product" data-category="cerveja">Cerveja Lager</div>
-            <div class="product" data-category="destilado">Whisky 12 anos</div>
-            <div class="product" data-category="vinho">Vinho Branco</div>
-            <div class="product" data-category="cerveja">Cerveja IPA</div>
-            <div class="product" data-category="ofertas">Combo de Cervejas</div>
-        </div> -->
     </section>
 
             <!-- Ícone do Carrinho de Compras -->
@@ -145,31 +138,39 @@
             <img src="img/whatsapp.png" alt="WhatsApp">
         </a>
 
-    
-
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-info">
-                <h3>Horário de Funcionamento</h3>
-                <p>Seg - Sex: 10h às 22h</p>
-                <p>Sáb - Dom: 12h às 23h</p>
-            </div>
-    
-            <div class="footer-social">
-                <h3>Nos siga</h3>
-                <div class="social-icons">
-                    <a href="#" target="_blank"><img src="img/facebook.png" alt="Facebook"></a>
-                    <a href="#" target="_blank"><img src="img/instagram.png" alt="Instagram"></a>
-                    
+        <footer>
+            <div class="footer-container">
+                <!-- Horário de Funcionamento -->
+                <div class="footer-info">
+                    <h3>Horário de Funcionamento</h3>
+                    <p>Seg - Sex: 10h às 22h</p>
+                    <p>Sáb - Dom: 12h às 23h</p>
+                </div>
+        
+                <!-- Redes Sociais -->
+                <div class="footer-social">
+                    <h3>Nos siga</h3>
+                    <div class="social-icons">
+                        <a href="#" target="_blank"><img src="img/facebook.png" alt="Facebook"></a>
+                        <a href="#" target="_blank"><img src="img/instagram.png" alt="Instagram"></a>
+                    </div>
+                </div>
+        
+                <!-- Contato -->
+                <div class="footer-contact">
+                    <h3>Contato</h3>
+                    <p><i class="fa fa-phone"></i> (91) 99999-9999</p>
+                    <p><i class="fa fa-envelope"></i> contato@adegadigital.com</p>
                 </div>
             </div>
-        </div>
+        
+            <p class="footer-creditos">© 2024 Adega Mix. Todos os direitos reservados.</p>
+        </footer>
+        
     
-        <p class="footer-creditos">© 2024 Adega de Bebidas. Todos os direitos reservados.</p>
-    </footer>
-    
-
+    <script src="js/admin.js"></script>
     <script src="js/menu.js"></script>
+    <script src="js/site.js"></script>
+
 </body>
 </html>

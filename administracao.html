@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Administração </title>
+    <link rel="stylesheet" href="estilos-adm.css">
+</head>
+<body>
+    <h1>Painel de Administração Adega Mix</h1>
+    
+    <form id="produto-form">
+        <input type="text" id="nome" placeholder="Nome do produto" required>
+        <input type="text" id="imagem" placeholder="URL da imagem" required>
+        <input type="text" id="preco" placeholder="Preço" required>
+        <select id="categoria" required>
+            <option value="">Selecione a categoria</option>
+            <option value="cerveja">Cerveja</option>
+            <option value="vinho">Vinho</option>
+            <option value="destilado">Destilado</option>
+            <option value="ofertas">Ofertas</option>
+        </select>
+        
+        <button type="submit">Adicionar Produto</button>
+    </form>
+    
+    <h2>Produtos Cadastrados</h2>
+    <ul id="lista-produtos"></ul>
+    
+    <script src="js/admin.js"></script>
+</body>
+</html>
