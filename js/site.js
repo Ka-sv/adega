@@ -1,88 +1,134 @@
-function carregarBebidas(categoriaFiltro = '') {
-    const bebidas = JSON.parse(localStorage.getItem('produtos')) || [];
-    const container = document.querySelector('.bebidas-container');
 
-    container.innerHTML = '<h1 class="produtos">Confira as nossas ofertas</h1>';
+document.addEventListener("DOMContentLoaded", function () {
+    const bebidasContainer = document.querySelector(".bebidas-container");
+    const pesquisaInput = document.getElementById("pesquisa-input");
+    const pesquisaBtn = document.getElementById("pesquisa-btn");
+    const limparBtn = document.getElementById("limpar-pesquisa");
 
-    if (bebidas.length === 0) {
-        container.innerHTML += '<p>Nenhuma bebida cadastrada ainda.</p>';
-        return;
+    // Função para buscar produtos
+    async function buscarProdutos(termo) {
+        try {
+            const resposta = await fetch("http://localhost:3000/produtos"); // Ajuste a URL
+            const produtos = await resposta.json();
+
+            // Normaliza os nomes para comparar melhor
+            const termoNormalizado = termo.toLowerCase().trim();
+            let resultados = produtos.filter(produto =>
+                produto.nome.toLowerCase().includes(termoNormalizado)
+            );
+
+            if (resultados.length === 0) {
+                resultados = encontrarMaisProximo(termoNormalizado, produtos);
+            }
+
+            exibirResultados(resultados);
+        } catch (erro) {
+            console.error("Erro ao buscar produtos:", erro);
+        }
     }
 
-    // Filtra os produtos pela categoria se um filtro for aplicado
-    const bebidasFiltradas = categoriaFiltro
-        ? bebidas.filter(bebida => bebida.categoria === categoriaFiltro)
-        : bebidas;
+    // Função para encontrar produtos mais próximos (Distância de Levenshtein)
+    function calcularDistanciaLevenshtein(a, b) {
+        const matrix = [];
 
-    if (bebidasFiltradas.length === 0) {
-        container.innerHTML += `<p>Nenhum produto encontrado na categoria "${categoriaFiltro}".</p>`;
-        return;
+        for (let i = 0; i <= b.length; i++) {
+            matrix[i] = [i];
+        }
+        for (let j = 0; j <= a.length; j++) {
+            matrix[0][j] = j;
+        }
+
+        for (let i = 1; i <= b.length; i++) {
+            for (let j = 1; j <= a.length; j++) {
+                if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                    matrix[i][j] = matrix[i - 1][j - 1];
+                } else {
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j - 1] + 1, // Substituição
+                        Math.min(
+                            matrix[i][j - 1] + 1, // Inserção
+                            matrix[i - 1][j] + 1 // Remoção
+                        )
+                    );
+                }
+            }
+        }
+
+        return matrix[b.length][a.length];
     }
 
-    bebidasFiltradas.forEach(bebida => {
-        const bebidaDiv = document.createElement('div');
-        bebidaDiv.classList.add('bebida');
-        bebidaDiv.innerHTML = `
-            <img src="${bebida.imagem}" alt="${bebida.nome}">
-            <h3>${bebida.nome}</h3>
-            <p>R$ ${bebida.preco.toFixed(2).replace('.', ',')}</p>
-            <button>Adicionar ao Carrinho</button>
-        `;
-        container.appendChild(bebidaDiv);
+    function encontrarMaisProximo(termo, produtos) {
+        return produtos.sort((a, b) => {
+            return calcularDistanciaLevenshtein(termo, a.nome) - calcularDistanciaLevenshtein(termo, b.nome);
+        }).slice(0, 3); // Retorna os 3 mais próximos
+    }
+
+    function exibirResultados(produtos) {
+        bebidasContainer.innerHTML = '<h1 class="produtos">Resultados da Busca</h1>';
+        if (produtos.length === 0) {
+            bebidasContainer.innerHTML += "<p>Nenhum produto encontrado.</p>";
+            return;
+        }
+
+        produtos.forEach(produto => {
+            const produtoHTML = `
+                <div class="bebida">
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <h3>${produto.nome}</h3>
+                    <p>R$ ${produto.preco.toFixed(2)}</p>
+                    <button>Adicionar ao Carrinho</button>
+                </div>
+            `;
+            bebidasContainer.innerHTML += produtoHTML;
+        });
+    }
+
+    // Adicionando debounce na pesquisa
+    let debounceTimer;
+    pesquisaInput.addEventListener("input", () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            if (pesquisaInput.value.trim()) {
+                buscarProdutos(pesquisaInput.value);
+            }
+        }, 300); // Aguarda 300ms antes de disparar a requisição
     });
-}
 
-document.getElementById('limpar-pesquisa').addEventListener('click', () => {
-    document.getElementById('pesquisa-input').value = '';
-    carregarBebidas(); // Recarrega todos os produtos
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    carregarBebidas(); // Carrega os produtos inicialmente
-
-    const pesquisaInput = document.getElementById('pesquisa-input');
-    const limparBtn = document.getElementById('limpar-pesquisa');
-
-    if (pesquisaInput) {
-        pesquisaInput.addEventListener('input', () => {
-            const termo = pesquisaInput.value.trim().toLowerCase();
-            carregarBebidas(termo); // Atualiza a lista conforme o usuário digita
-        });
-    }
-
-    if (limparBtn) {
-        limparBtn.addEventListener('click', () => {
-            pesquisaInput.value = ''; // Limpa o campo de pesquisa
-            carregarBebidas(); // Recarrega todos os produtos
-        });
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    carregarBebidas(); // Carrega todos os produtos inicialmente
-
-    // Captura todos os botões da seção opções
-    const botoesFiltro = document.querySelectorAll('.filter-btn');
-
-    botoesFiltro.forEach(botao => {
-        botao.addEventListener('click', () => {
-            const categoria = botao.getAttribute('data-category'); // Pega a categoria do botão
-            carregarBebidas(categoria); // Filtra os produtos com base na categoria clicada
-        });
+    pesquisaBtn.addEventListener("click", () => {
+        buscarProdutos(pesquisaInput.value);
     });
-});
 
-document.addEventListener('DOMContentLoaded', () => {
-    const logo = document.querySelector('.logo');
+    pesquisaInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            buscarProdutos(pesquisaInput.value);
+        }
+    });
 
-    if (window.innerWidth <= 767) { // Apenas para telas menores
-        logo.addEventListener('click', () => {
-            logo.classList.add('animacao-toque');
+    limparBtn.addEventListener("click", () => {
+        if (pesquisaInput.value.trim() !== "") { // Só recarrega os produtos se houver pesquisa ativa
+            pesquisaInput.value = "";
+            carregarProdutos(); // Restaura os produtos originais da API
+        }
+    });
+    
 
-            // Remove a animação após 1 segundo
-            setTimeout(() => {
-                logo.classList.remove('animacao-toque');
-            }, 1000);
-        });
-    }
+    // Carregar produtos ao carregar a página
+    fetch("http://localhost:3000/produtos")
+        .then(response => response.json())
+        .then(produtos => {
+            produtos.forEach(produto => {
+                const bebidaDiv = document.createElement("div");
+                bebidaDiv.classList.add("bebida");
+
+                bebidaDiv.innerHTML = `
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <h3>${produto.nome}</h3>
+                    <p>R$ ${produto.preco.toFixed(2)}</p>
+                    <button>Adicionar ao Carrinho</button>
+                `;
+
+                bebidasContainer.appendChild(bebidaDiv);
+            });
+        })
+        .catch(error => console.error("Erro ao carregar produtos:", error));
 });

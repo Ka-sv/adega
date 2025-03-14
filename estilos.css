@@ -112,7 +112,7 @@ button {
   color: white;
 }
 #limpar-pesquisa {
-  background-color: #ff4747; /* Vermelho vibrante */
+  background-color: #B57114; /* Vermelho vibrante */
   color: white; /* Texto branco */
   border: none;
   padding: 8px 15px;
@@ -247,7 +247,7 @@ main p {
   text-align: center;
   padding: 20px;
   color: #000000;
-  background-color: #484d50;
+  background-color:#B57114;
 }
 
 .filter-section {
@@ -257,7 +257,6 @@ main p {
   flex-wrap: wrap;
   margin-top: 20px;
 }
-
 
 .filter-btn {
   display: flex;
@@ -325,25 +324,26 @@ main p {
     height: auto;
 }
 
-
 #whatsapp-btn-fixed {
     bottom: 20px;
     width: 60px;
     height: auto;
 }
 
-
 #cart-btn-fixed img,
 #whatsapp-btn-fixed img {
     max-width: 100%;
 }
 
-
 #cart-btn-fixed:hover,
 #whatsapp-btn-fixed:hover {
     transform: scale(1.1);
 }
-
+.logo-rodape{
+    max-height: 240px; /* Ajuste esse valor conforme necessário */
+    width: auto; /* Mantém a proporção */
+    object-fit: contain; /* Evita distorção */
+}
 
 /* Responsivo para celulares */
 @media (max-width: 414px) {
