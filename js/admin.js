@@ -119,3 +119,13 @@ document.addEventListener('DOMContentLoaded', function () {
     carregarProdutos(); // Carregar os produtos na inicialização da página
 });
 
+function atualizarProdutosPeriodicamente() {
+    setInterval(() => {
+        carregarProdutos(); // Chama a função que carrega os produtos da API
+    }, 5000); // Atualiza a cada 5 segundos
+}
+
+// Chama a função assim que a página carrega
+document.addEventListener('DOMContentLoaded', () => {
+    atualizarProdutosPeriodicamente();
+});

@@ -243,52 +243,118 @@ main p {
     transform: scale(1.05);
 }
 
-.opcoes {
-  text-align: center;
-  padding: 20px;
-  color: #000000;
-  background-color:#B57114;
-}
-
-.filter-section {
-  display: flex;
-  justify-content: center;
-  gap: 15px; /* Espaçamento entre os botões */
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
 
 .filter-btn {
+  background: #222; /* Fundo escuro para os botões */
+  border: 1px solid #444; /* Borda para destacar os botões */
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, background 0.3s;
+  border-radius: 8px;
+  padding: 10px;
+}
+.opcoes {
+  background: #1a1a1a; /* Mesmo fundo escuro aplicado à seção */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center; /* Garante que o conteúdo fique centralizado */
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: transparent;
-  border: none;
-  cursor: pointer;
+}
+
+/* Estilizando o título h2 dentro da .opcoes */
+.opcoes h2 {
+  font-size: 24px;
+  color: #ffcc00; /* Amarelo dourado para destaque */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 10px rgba(255, 204, 0, 0.5);
+  width: 100%; /* Faz com que o título ocupe toda a largura */
+  text-align: center; /* Centraliza o texto em todas as telas */
+}
+
+/* Garantindo que a div de botões também tenha o fundo correto */
+.filter-section {
+  background: transparent; /* Remove o fundo extra, já que .opcoes cobre tudo */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 10px;
+  width: 100%;
+}
+
+.categoria-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.categoria-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 10px;
   transition: transform 0.2s ease-in-out;
 }
 
-.filter-btn:hover {
-  background: #b22222;
-  color: white;
+.categoria-card:hover img {
   transform: scale(1.1);
 }
 
-.filter-btn img {
-  width: 80px; /* Ajuste o tamanho da imagem */
-  height: 80px; /* Garante que todas tenham o mesmo tamanho */
-  object-fit: contain; /* Mantém a proporção sem cortar */
-  border-radius: 10px; /* Arredonda um pouco para um visual moderno */
-  transition: transform 0.2s ease-in-out;
+.categoria-nome {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #ffcc00; /* Amarelo dourado para destacar o nome */
+  font-weight: bold;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+}
+/* Efeito hover para os botões */
+.filter-btn:hover {
+  background: #333; /* Tom mais claro no hover */
+  border-color: #ffcc00; /* Destaque dourado ao passar o mouse */
 }
 
-.filter-btn span {
-  margin-top: 5px;
-  font-size: 14px;
-  color: white;
-  font-weight: bold;
-  text-align: center;
+/* Responsividade */
+@media (max-width: 768px) {
+  .filter-section {
+      gap: 10px;
+  }
+  .opcoes h2 {
+    font-size: 20px;
 }
+
+  .categoria-card img {
+      width: 80px;
+      height: 80px;
+  }
+
+  .categoria-nome {
+      font-size: 14px;
+  }
+}
+
+@media (max-width: 414px) {
+  .filter-section {
+      gap: 5px;
+  }
+  .opcoes h2 {
+    font-size: 20px;
+}
+
+  .categoria-card img {
+      width: 60px;
+      height: 60px;
+  }
+
+  .categoria-nome {
+      font-size: 12px;
+  }
+}
+
 
 .products {
   display: flex;
@@ -462,7 +528,7 @@ main p {
 }
 
 footer {
-  background: #000000;
+  background: #1a1a1a;
   color: white;
   text-align: center;
   padding: 20px 10px;

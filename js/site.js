@@ -100,17 +100,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     pesquisaInput.addEventListener("keypress", (event) => {
         if (event.key === "Enter") {
-            buscarProdutos(pesquisaInput.value);
-        }
-    });
-
-    limparBtn.addEventListener("click", () => {
-        if (pesquisaInput.value.trim() !== "") { // Só recarrega os produtos se houver pesquisa ativa
-            pesquisaInput.value = "";
-            carregarProdutos(); // Restaura os produtos originais da API
+            if (pesquisaInput.value.trim()) {
+                buscarProdutos(pesquisaInput.value);
+            } else {
+                carregarProdutos(); // Apenas chama a função existente
+            }
         }
     });
     
+    limparBtn.addEventListener("click", () => {
+        pesquisaInput.value = ""; // Limpa o campo de pesquisa
+        buscarProdutos(""); // Chama a função de busca sem um termo, retornando todos os produtos
+    });
 
     // Carregar produtos ao carregar a página
     fetch("http://localhost:3000/produtos")
@@ -132,3 +133,72 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Erro ao carregar produtos:", error));
 });
+
+document.addEventListener("DOMContentLoaded", async function () {
+    const categoriaContainer = document.getElementById("categoria-container");
+
+    // Definição das categorias com imagem ilustrativa
+    const categorias = [
+        { nome: "Cervejas", valor: "cerveja", imagem: "img/cervejas.webp" },
+        { nome: "Vinhos", valor: "vinho", imagem: "img/vinhos.Webp" },
+        { nome: "Destilados", valor: "destilados", imagem: "img/destilados.png" },
+        { nome: "Refrigerantes", valor: "refrigerante", imagem: "img/refrigerante.webp" },
+        { nome: "Sucos", valor: "suco", imagem: "img/sucos.jpg" },
+        { nome: "Combos", valor: "Combos", imagem: "img/combo-jack-n7.png" },
+        { nome: "Churrasco", valor: "Churrasco", imagem: "img/Churrasco.png" },
+        { nome: "Ofertas", valor: "Ofertas", imagem: "img/desconto.png" }
+    ];
+
+    // Criando os botões de categorias dinamicamente
+    categorias.forEach(categoria => {
+        const button = document.createElement("button");
+        button.classList.add("filter-btn");
+        button.setAttribute("data-category", categoria.valor);
+
+        // Estrutura do botão com imagem e nome da categoria
+        button.innerHTML = `
+            <div class="categoria-card">
+                <img src="${categoria.imagem}" alt="${categoria.nome}">
+                <span class="categoria-nome">${categoria.nome}</span>
+            </div>
+        `;
+
+        // Adiciona evento de clique para filtrar produtos
+        button.addEventListener("click", () => filtrarProdutos(categoria.valor));
+
+        categoriaContainer.appendChild(button);
+    });
+});
+
+
+// Função para filtrar produtos pela categoria selecionada
+async function filtrarProdutos(categoriaSelecionada) {
+    try {
+        const response = await fetch("http://localhost:3000/produtos");
+        const produtos = await response.json();
+
+        const produtosFiltrados = produtos.filter(produto => produto.categoria.toLowerCase() === categoriaSelecionada.toLowerCase());
+
+        const produtosContainer = document.querySelector(".bebidas-container");
+        produtosContainer.innerHTML = "";
+
+        if (produtosFiltrados.length === 0) {
+            produtosContainer.innerHTML = "<p>Nenhum produto encontrado para essa categoria.</p>";
+            return;
+        }
+
+        produtosFiltrados.forEach(produto => {
+            produtosContainer.innerHTML += `
+                <div class="bebida">
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <h3>${produto.nome}</h3>
+                    <p>R$ ${produto.preco}</p>
+                    <button>Adicionar ao Carrinho</button>
+                </div>
+            `;
+        });
+
+    } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+    }
+}
