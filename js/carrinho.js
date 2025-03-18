@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <h2>Seu Carrinho</h2>
             <ul id="lista-carrinho"></ul>
             <p><strong>Total:</strong> R$ <span id="total-preco">0.00</span></p>
+            <button id="finalizar-compra">Finalizar Compra</button>
         </div>
     `;
     document.body.appendChild(modalCarrinho);
@@ -23,11 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
         carrinho.forEach((item, index) => {
             const li = document.createElement("li");
             li.innerHTML = `
-                ${item.nome} - R$ ${item.preco.toFixed(2)}
+                ${item.nome} (x${item.quantidade}) - R$ ${(item.preco * item.quantidade).toFixed(2)}
+                <button class="diminuir-quantidade" data-index="${index}">-</button>
+                <button class="aumentar-quantidade" data-index="${index}">+</button>
                 <button class="remover-item" data-index="${index}">Remover</button>
             `;
             listaCarrinho.appendChild(li);
-            total += item.preco;
+            total += item.preco * item.quantidade;
         });
         totalPreco.textContent = total.toFixed(2);
     }
@@ -40,7 +43,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 const precoTexto = produtoDiv.querySelector("p").textContent;
                 const preco = parseFloat(precoTexto.replace("R$ ", "").replace(",", "."));
                 
-                carrinho.push({ nome, preco });
+                const itemExistente = carrinho.find(item => item.nome === nome);
+                if (itemExistente) {
+                    itemExistente.quantidade++;
+                } else {
+                    carrinho.push({ nome, preco, quantidade: 1 });
+                }
                 atualizarCarrinho();
             });
         });
@@ -93,56 +101,35 @@ document.addEventListener("DOMContentLoaded", function () {
             const index = event.target.getAttribute("data-index");
             carrinho.splice(index, 1);
             atualizarCarrinho();
+        } else if (event.target.classList.contains("aumentar-quantidade")) {
+            const index = event.target.getAttribute("data-index");
+            carrinho[index].quantidade++;
+            atualizarCarrinho();
+        } else if (event.target.classList.contains("diminuir-quantidade")) {
+            const index = event.target.getAttribute("data-index");
+            if (carrinho[index].quantidade > 1) {
+                carrinho[index].quantidade--;
+            } else {
+                carrinho.splice(index, 1);
+            }
+            atualizarCarrinho();
         }
+    });
+
+    document.getElementById("finalizar-compra").addEventListener("click", function () {
+        if (carrinho.length === 0) {
+            alert("Seu carrinho está vazio!");
+            return;
+        }
+        let mensagem = "Pedido:\n";
+        carrinho.forEach(item => {
+            mensagem += `${item.nome} (x${item.quantidade}) - R$ ${(item.preco * item.quantidade).toFixed(2)}\n`;
+        });
+        mensagem += `\nTotal: R$ ${document.getElementById("total-preco").textContent}`;
+        const numeroWhatsApp = "5511999999999"; // Substitua pelo número real
+        const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+        window.open(url, "_blank");
     });
 
     carregarProdutos();
 });
-
-// CSS para a Modal
-const estilo = document.createElement("style");
-estilo.innerHTML = `
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .modal-content {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        width: 90%;
-        max-width: 400px;
-        text-align: center;
-        position: relative;
-    }
-    .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 20px;
-        cursor: pointer;
-        background: none;
-        border: none;
-    }
-    #lista-carrinho {
-        list-style: none;
-        padding: 0;
-    }
-    .remover-item {
-        margin-left: 10px;
-        background: red;
-        color: white;
-        border: none;
-        cursor: pointer;
-    }
-`;
-document.head.appendChild(estilo);
