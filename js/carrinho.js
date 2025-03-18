@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
     `;
     document.body.appendChild(modalCarrinho);
+    modalCarrinho.style.display = "none"; // Garante que o modal inicie oculto
+
 
     function atualizarCarrinho() {
         const listaCarrinho = document.getElementById("lista-carrinho");
