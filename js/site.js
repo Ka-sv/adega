@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Definição das categorias com imagem ilustrativa
     const categorias = [
         { nome: "Cervejas", valor: "cerveja", imagem: "img/cervejas.webp" },
-        { nome: "Vinhos", valor: "vinho", imagem: "img/vinhos.Webp" },
+        { nome: "Vinhos", valor: "vinho", imagem: "img/vinhos.webp" },
         { nome: "Destilados", valor: "destilados", imagem: "img/destilados.png" },
         { nome: "Refrigerantes", valor: "refrigerante", imagem: "img/refrigerante.webp" },
         { nome: "Sucos", valor: "suco", imagem: "img/sucos.jpg" },
