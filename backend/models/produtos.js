@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/dbConfig'); // Importa a conexão com o banco
+const sequelize = require('../config/dbConfig');
 
 // Definição do modelo Produto
-const Produto = sequelize.define('Produto', {
+const produto = sequelize.define('produto', {
   nome: {
     type: DataTypes.STRING,
     allowNull: false
@@ -20,12 +20,13 @@ const Produto = sequelize.define('Produto', {
     allowNull: false
   }
 }, {
-  timestamps: false // Desativa os campos createdAt e updatedAt
+  tableName: 'produtos', // Força o Sequelize a usar o nome correto da tabela
+  timestamps: false
 });
 
 // Sincronizando o modelo com o banco de dados
-Produto.sync({ alter: true }) // Altera a tabela sem perder dados
+produto.sync() // Removendo `alter: true` para evitar conflitos no Render
   .then(() => console.log('✅ Tabela de produtos sincronizada'))
   .catch(err => console.error('❌ Erro ao sincronizar o modelo:', err));
 
-module.exports = Produto;
+module.exports = produto;

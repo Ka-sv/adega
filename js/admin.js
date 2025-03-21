@@ -2,13 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const produtoForm = document.getElementById("produto-form");
     const listaProdutos = document.getElementById("lista-produtos");
 
-    if (!produtoForm) {
-        console.error("Formulário não encontrado. Verifique se existe um elemento com id='produto-form'.");
-        return;
-    }
-
-    if (!listaProdutos) {
-        console.error("Lista de produtos não encontrada. Verifique se existe um elemento com id='lista-produtos'.");
+    if (!produtoForm || !listaProdutos) {
+        console.error("Erro ao encontrar elementos necessários na página.");
         return;
     }
 
@@ -22,23 +17,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const produto = { nome, imagem, preco, categoria };
 
-        fetch("http://localhost:3000/produtos", {
+        fetch("https://adega-xz4s.onrender.com/produtos", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(produto)
         })
-        .then(response => response.json())
-        .then(data => {
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => { throw new Error(text); });
+            }
+            return response.json();
+        })
+        .then(() => {
             alert("Produto cadastrado com sucesso!");
             produtoForm.reset();
             carregarProdutos();
         })
-        .catch(error => console.error("Erro ao cadastrar produto:", error));
+        .catch(error => console.error("Erro ao cadastrar produto:", error.message));
     });
 
     function carregarProdutos() {
-        fetch("http://localhost:3000/produtos")
-            .then(response => response.json())
+        fetch("https://adega-xz4s.onrender.com/produtos")
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+                return response.json();
+            })
             .then(produtos => {
                 listaProdutos.innerHTML = "";
                 produtos.forEach(produto => {
@@ -50,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 adicionarEventoRemover();
             })
-            .catch(error => console.error("Erro ao carregar produtos:", error));
+            .catch(error => console.error("Erro ao carregar produtos:", error.message));
     }
 
     function adicionarEventoRemover() {
@@ -63,18 +68,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function removerProduto(produtoId) {
-        fetch(`http://localhost:3000/produtos/${produtoId}`, {
+        fetch(`https://adega-xz4s.onrender.com/produtos/${produtoId}`, {
             method: "DELETE"
         })
         .then(response => {
-            if (response.ok) {
-                alert("Produto removido com sucesso!");
-                carregarProdutos();
-            } else {
-                alert("Erro ao remover produto.");
+            if (!response.ok) {
+                throw new Error("Erro ao remover produto.");
             }
+            alert("Produto removido com sucesso!");
+            carregarProdutos();
         })
-        .catch(error => console.error("Erro ao remover produto:", error));
+        .catch(error => console.error("Erro ao remover produto:", error.message));
     }
 
     carregarProdutos();

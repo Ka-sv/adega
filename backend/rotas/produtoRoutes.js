@@ -17,11 +17,25 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const produtos = await Produto.findAll();
-    console.log(produtos);  // Adicionando um log para verificar o que está sendo retornado
+    console.log('Produtos encontrados:', produtos);  // Adicionando um log para verificar os produtos
+    if (produtos.length === 0) {
+      console.log('Nenhum produto encontrado');
+      return res.status(404).json({ error: 'Nenhum produto encontrado' });
+    }
     res.json(produtos);
   } catch (error) {
     console.error('Erro ao buscar produtos:', error);  // Log do erro
     res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/produtos", async (req, res) => {
+  try {
+      const produtos = await Produto.findAll();
+      res.json(produtos);
+  } catch (error) {
+      console.error("Erro ao buscar produtos:", error);
+      res.status(500).json({ error: "Erro ao buscar produtos" });
   }
 });
 
@@ -44,6 +58,8 @@ router.delete('/:id', async (req, res) => {
       res.status(500).json({ error: 'Erro ao remover produto' });
   }
 });
+
+
 
 
 module.exports = router;
