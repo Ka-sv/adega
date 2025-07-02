@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("📤 Enviando produto:", produto);
 
-        fetch("https://adega-xz4s.onrender.com/produtos", {
+        fetch("https://adega-teste.onrender.com/produtos", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(produto)
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 📦 Função para carregar os produtos
     function carregarProdutos() {
         console.log("🔄 Carregando produtos...");
-        fetch("https://adega-xz4s.onrender.com/produtos")
+        fetch("https://adega-teste.onrender.com/produtos")
             .then(response => {
                 if (!response.ok) {
                     return response.text().then(text => { throw new Error(text); });
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🚮 Função para remover um produto
     function removerProduto(produtoId) {
         console.log(`🗑️ Removendo produto ID: ${produtoId}`);
-        fetch(`https://adega-xz4s.onrender.com/produtos/${produtoId}`, {
+        fetch(`https://adega-teste.onrender.com/produtos${produtoId}`, {
             method: "DELETE"
         })
         .then(response => {
