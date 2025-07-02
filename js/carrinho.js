@@ -14,8 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
     `;
     document.body.appendChild(modalCarrinho);
-    modalCarrinho.style.display = "none"; // Garante que o modal inicie oculto
-
+    modalCarrinho.style.display = "none";
 
     function atualizarCarrinho() {
         const listaCarrinho = document.getElementById("lista-carrinho");
@@ -57,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function carregarProdutos() {
-        fetch("http://localhost:3000/produtos")
+        fetch("https://adega-teste.onrender.com/produtos")
             .then(response => response.json())
             .then(produtos => {
                 const bebidasContainer = document.querySelector(".bebidas-container");
